@@ -71,7 +71,7 @@ query GetPost($slug: String) {
             /deep/ .mobile {
                 display: block;
             }
-            /deep/ table {
+            /deep/ .desktop {
                 display: none;
             }
         }

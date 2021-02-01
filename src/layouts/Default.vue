@@ -8,11 +8,17 @@
         <g-link class="nav__link" to="/">Home</g-link>
         <g-link class="nav__link" to="/about/">About</g-link>
       </nav>
-      <Slide right class="slide-menu">
-        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-      </Slide>
+      <nav class="hamburger-menu">
+        <div class="menu" :class="{'show-menu': menuActive}">
+          <div class="close" @click="menuToggle"><v-fa :icon="['fa', 'times']" size="xs"/></div>
+          <div><g-link to="/">{{ $static.metadata.siteName }}</g-link></div>
+          <div><g-link to="/">Home</g-link></div>
+          <div><g-link to="/about/">About</g-link></div>
+        </div>
+        <div @click="menuToggle" class="bar-icon">
+          <v-fa :icon="['fa', 'bars']" size="lg"/>
+        </div>
+      </nav>
     </header>
     <slot/>
     <footer>
@@ -22,26 +28,28 @@
 </template>
 
 <script>
-import { Slide } from 'vue-burger-menu'
 
 export default {
-    components: {
-        Slide
-    },
-
     mounted() {
       window.addEventListener("scroll", this.handleScroll)
+    },
+    destroyed () {
+      window.removeEventListener('scroll', this.handleScroll);
     },
 
     data() {
       return {
-        scrolled: false
+        scrolled: false,
+        menuActive: false
       }
     },
 
     methods: {
     handleScroll () {
       this.scrolled = window.scrollY > window.innerHeight;
+    },
+    menuToggle(){
+      this.menuActive = !this.menuActive;
     }
   },
 }
@@ -73,10 +81,7 @@ h1 {
 }
 
 .layout {
-  /* max-width: 760px; */
   margin: 0 auto;
-  /* padding-left: 20px;
-  padding-right: 20px; */
 }
 
 .header {
@@ -103,29 +108,45 @@ h1 {
       font-size: 25px;
     }
   }
-  .slide-menu {
+  .hamburger-menu {
     display: none;
   }
   @media(max-width: 768px) { 
     .nav {
       display: none;
     }
-    .slide-menu {
+    .hamburger-menu {
       display: block;
-      .bm-menu {
-        background: white;
-        a {
-          text-decoration: none;
-          color: #0838BB;
+      .bar-icon {
+        svg path {
+          fill: #0838BB;
         }
       }
-      .bm-burger-button {
-        top: 28px;
-        width: 30px;
-        height: 28px;
-        .bm-burger-bars {
-          background: #0838BB;
-          height: 16%;
+      .menu {
+        position: absolute;
+        top: 0;
+        height: 100vh;
+        width: 100vw;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        text-align: center;
+        font-size: 3rem;
+        transition: all .4s ease-in-out;
+        right: -100%;
+        &.show-menu {
+          right: 0;
+        }
+        .close {
+          position: absolute;
+          top: 5px;
+          right: 15px;
+        }
+        a {
+          display: inline-block;
+          text-decoration: none;
+          color: #0838BB;
         }
       }
     }
