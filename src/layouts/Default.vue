@@ -1,0 +1,155 @@
+<template>
+  <div class="layout sc">
+    <header class="header" :class="{'white-bg': scrolled}">
+      <strong class="logo">
+        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
+      </strong>
+      <nav class="nav">
+        <g-link class="nav__link" to="/">Home</g-link>
+        <g-link class="nav__link" to="/about/">About</g-link>
+      </nav>
+      <Slide right class="slide-menu">
+        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
+        <g-link class="nav__link" to="/">Home</g-link>
+        <g-link class="nav__link" to="/about/">About</g-link>
+      </Slide>
+    </header>
+    <slot/>
+    <footer>
+      <small>&copy; 2021 AyaTsubakino</small>
+    </footer>
+  </div>
+</template>
+
+<script>
+import { Slide } from 'vue-burger-menu'
+
+export default {
+    components: {
+        Slide
+    },
+
+    mounted() {
+      window.addEventListener("scroll", this.handleScroll)
+    },
+
+    data() {
+      return {
+        scrolled: false
+      }
+    },
+
+    methods: {
+    handleScroll () {
+      this.scrolled = window.scrollY > window.innerHeight;
+    }
+  },
+}
+
+</script>
+
+<static-query>
+query {
+  metadata {
+    siteName
+  }
+}
+</static-query>
+
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin:0;
+  padding:0;
+  line-height: 1.5;
+  color: #3f3f3f;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+}
+
+.layout {
+  /* max-width: 760px; */
+  margin: 0 auto;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+}
+
+.header {
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  top: 0;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  &.white-bg {
+    background: white;
+    box-shadow: 2px 4px 7px rgba(8, 56, 187, 0.3);
+  }
+  .logo {
+    a {
+      text-decoration: none;
+      color:#0838BB;
+      text-shadow: 1px 1px rgba(255,255,255,0.6);
+      font-family: 'Poppins', sans-serif;
+      font-size: 25px;
+    }
+  }
+  .slide-menu {
+    display: none;
+  }
+  @media(max-width: 768px) { 
+    .nav {
+      display: none;
+    }
+    .slide-menu {
+      display: block;
+      .bm-menu {
+        background: white;
+        a {
+          text-decoration: none;
+          color: #0838BB;
+        }
+      }
+      .bm-burger-button {
+        top: 28px;
+        width: 30px;
+        height: 28px;
+        .bm-burger-bars {
+          background: #0838BB;
+          height: 16%;
+        }
+      }
+    }
+  }
+  .nav__link {
+    margin-left: 20px;
+    text-decoration: none;
+    color:#0838BB;
+    text-shadow: 1px 1px rgba(255,255,255,0.6);;
+  }
+}
+
+footer {
+  margin-top: 100px;
+  background: #0838BB;
+  color: white;
+  text-align: center;
+  height: 50px;
+  clear: both;
+  small {
+    display: inline-block;
+    margin-top: 16px;
+  }
+}
+
+
+</style>
