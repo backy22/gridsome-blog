@@ -61,6 +61,9 @@ query GetPost($slug: String) {
         /deep/ .desktop {
             display: none;
         }
+        /deep/ h3, /deep/ table {
+            clear: both;
+        }
         @media(min-width: 768px) {
             /deep/ img {
                 width: 400px;
