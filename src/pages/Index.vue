@@ -85,7 +85,7 @@ export default {
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 3rem;
   position: absolute;
   top: 10%;
   left: 50%;
@@ -93,8 +93,8 @@ h1 {
   color: white;
   text-shadow: 1px 1px rgba(0,0,0,0.2);
   width: 80%;
-  @media(max-width: 768px) {
-    font-size: 3rem;
+  @media(min-width: 768px) {
+    font-size: 5rem;
   }
 }
 
@@ -117,25 +117,25 @@ h1 {
         .img-container {
           grid-row: 1;
           z-index: 5;
-          height: 400px;
-          @media(max-width: 768px) {
-            height: auto;
+          @media(min-width: 768px) {
+            height: 400px;
           }
           img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
           }
         }
         .excerpt {
-          grid-row: 1;
+          grid-row: 2;
           background: #cfebf4;
-          margin-top: 10%;
+          margin-top: -10%;
           margin-bottom: -10%;
           transition: all .4s ease-in-out;
-          @media(max-width: 768px) {
-            grid-row: 2;
-            margin-top: -10%;
+          @media(min-width: 768px) {
+            grid-row: 1;
+            margin-top: 10%;
           }
         }
       }
@@ -145,62 +145,74 @@ h1 {
         text-align: left;
       }
       .img-container{
-        grid-column: 1 / span 5;
-        @media(max-width: 768px) {
-          grid-column: 1 / span 11;
-        }
+        grid-column: 1 / 11;
       }
       .excerpt {
-        grid-column: 5 / -3;
+        grid-column: 2 / 12;
         p {
-          padding: 0 5% 0 20%;
-        }
-        @media(max-width: 768px) {
-          grid-column: 2 / span 12;
-          p {
-            padding: 20px 5% 0 5%;
-          }
+          padding: 20px 5% 0 5%;
         }
       }
       &:hover {
         .excerpt {
-          transform: translateX(30px);
-          @media(max-width: 768px) {
-            transform: translateY(20px);
+          transform: translateY(20px);
+        }
+      }
+      
+      @media(min-width: 768px) {
+        .img-container{
+          grid-column: 1 / span 5;
+        }
+        .excerpt {
+          grid-column: 5 / -3;
+          p {
+            padding: 0 5% 0 20%;
+          }
+        }
+        &:hover {
+          .excerpt {
+            transform: translateX(30px);
           }
         }
       }
+
     }
     .nav__link:nth-child(2n) {
       .post-title {
         text-align: right;
       }
       .img-container{
-        grid-column: 8 / -1;
-        @media(max-width: 768px) {
-          grid-column: 2 / span 12;
-        }
+        grid-column: 2 / span 12;
       }
       .excerpt {
-        grid-column: 3 / span 6;
-        p { 
-          padding: 0 20% 0 5%;
-        }
-        @media(max-width: 768px) {
-          grid-column: 1 / span 11;
-          p {
-            padding: 20px 5% 0 5%;
-          }
+        grid-column: 1 / span 11;
+        p {
+          padding: 20px 5% 0 5%;
         }
       }
       &:hover {
         .excerpt {
-          transform: translateX(-30px);
-          @media(max-width: 768px) {
-            transform: translateY(20px);
+          transform: translateY(20px);
+        }
+      }
+
+      @media(min-width: 768px) {
+        .img-container {
+          grid-column: 8 / -1;
+        }
+        .excerpt {
+          grid-column: 3 / span 6;
+          p { 
+            padding: 0 20% 0 5%;
+          }
+        }
+        &:hover {
+          .excerpt {
+            transform: translateX(-30px);
           }
         }
       }
+
     }
   }
 }

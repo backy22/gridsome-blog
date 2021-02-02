@@ -38,7 +38,7 @@ query GetPost($slug: String) {
     .post-container {
         margin-top: 80px;
     }
-    
+
     .cover-image {
         width: 100vw;
         height: 70vh;
@@ -53,26 +53,23 @@ query GetPost($slug: String) {
         width: 80%;
         margin: 0 auto;
         /deep/ img {
-            width: 400px;
+            width: 100%;
             height: auto;
             float: left;
             margin: 0 20px 20px 0;
         }
-        /deep/ h3, /deep/ table {
-            clear: both;
-        }
-        /deep/.mobile {
+        /deep/ .desktop {
             display: none;
         }
-        @media(max-width: 768px) {
+        @media(min-width: 768px) {
             /deep/ img {
-                width: 100%;
+                width: 400px;
             }
             /deep/ .mobile {
-                display: block;
+                display: none;
             }
             /deep/ .desktop {
-                display: none;
+                display: block;
             }
         }
     }
